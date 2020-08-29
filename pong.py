@@ -3,10 +3,19 @@
 # Import and initialize the pygame library
 import pygame
 
+def display_lives (screen, lives):#
+    font = pygame.font.Font(None, 36)
+    text = font.render('Hello There', 1, (255, 255, 255))
+    textpos = text.get_rect()
+    textpos.centerx = screen.get_rect().centerx
+    screen.blit(text, textpos)
+
 pygame.init()
 
 SCREEN_WIDTH = 500
 SCREEN_HEIGHT = 500
+
+lives = 10
 
 # Set up the drawing window
 screen = pygame.display.set_mode([SCREEN_WIDTH, SCREEN_HEIGHT])
@@ -33,13 +42,11 @@ while running:
     background = background.convert()
     background.fill(BACKGROUND_COLOR)
 
-    # Fill the background with white
-    screen.fill(BACKGROUND_COLOR)
-
     # Draw a solid blue circle in the center
     for i in display_items:
         i.draw(background)
 
+    display_lives(screen, lives)
     screen.blit(background, (0, 0))
     pygame.display.flip()
 
