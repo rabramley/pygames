@@ -41,6 +41,8 @@ pygame.init()
 
 lives = 10
 top_wall = Wall(SCREEN_WIDTH, WALL_WIDTH, 0, 40)
+left_wall = Wall(WALL_WIDTH, SCREEN_HEIGHT, 0, 40)
+right_wall = Wall(WALL_WIDTH, SCREEN_HEIGHT, SCREEN_WIDTH - WALL_WIDTH, 40)
 
 # Set up the drawing window
 screen = pygame.display.set_mode([SCREEN_WIDTH, SCREEN_HEIGHT])
