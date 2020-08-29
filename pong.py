@@ -5,7 +5,7 @@ import pygame
 
 def display_lives (screen, lives):
     font = pygame.font.Font(None, 36)
-    text = font.render('Hello There', 1, (255, 255, 255))
+    text = font.render(f'Lives: {lives}', 1, (255, 255, 255))
     textpos = text.get_rect()
     textpos.centerx = screen.get_rect().centerx
     screen.blit(text, textpos)
