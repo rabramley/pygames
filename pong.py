@@ -7,6 +7,7 @@ SCREEN_WIDTH = 500
 SCREEN_HEIGHT = 500
 
 WALL_WIDTH = 10
+PLAY_AREA_TOP = 40
 
 WALL_COLOR = (255, 255, 255)
 TEXT_COLOR = (255, 255, 255)
@@ -40,9 +41,9 @@ pygame.init()
 
 
 lives = 10
-top_wall = Wall(SCREEN_WIDTH, WALL_WIDTH, 0, 40)
-left_wall = Wall(WALL_WIDTH, SCREEN_HEIGHT, 0, 40)
-right_wall = Wall(WALL_WIDTH, SCREEN_HEIGHT, SCREEN_WIDTH - WALL_WIDTH, 40)
+top_wall = Wall(SCREEN_WIDTH, WALL_WIDTH, 0, PLAY_AREA_TOP)
+left_wall = Wall(WALL_WIDTH, SCREEN_HEIGHT - PLAY_AREA_TOP, 0, PLAY_AREA_TOP)
+right_wall = Wall(WALL_WIDTH, SCREEN_HEIGHT - PLAY_AREA_TOP, SCREEN_WIDTH - WALL_WIDTH, PLAY_AREA_TOP)
 
 # Set up the drawing window
 screen = pygame.display.set_mode([SCREEN_WIDTH, SCREEN_HEIGHT])
