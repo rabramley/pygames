@@ -32,10 +32,10 @@ class Wall(pygame.sprite.Sprite):
 
 class Paddle(Wall):
     def move(self, left_down, right_down):
-        if right_down:
+        if right_down and self.rect.x + PADDLE_WIDTH < SCREEN_WIDTH - WALL_THICKNESS - 1:
             self.rect.x += PADDLE_SPEED * dt
             print(f'Right: {PADDLE_SPEED * dt}')
-        if left_down:
+        if left_down and self.rect.x > WALL_THICKNESS + 1:
             self.rect.x -= PADDLE_SPEED * dt
             print(f'Left: {PADDLE_SPEED * dt}')
     
