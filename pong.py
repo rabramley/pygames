@@ -30,8 +30,8 @@ class Wall(pygame.sprite.Sprite):
        self.image.fill(WALL_COLOR)
 
        self.rect = self.image.get_rect()
-       self.rect.x = left
-       self.rect.y = top
+       self.rect.x = int(left)
+       self.rect.y = int(top)
 
 class Ball(pygame.sprite.Sprite):
 
@@ -42,14 +42,14 @@ class Ball(pygame.sprite.Sprite):
        self.image.fill(BALL_COLOR)
 
        self.rect = self.image.get_rect()
-       self.rect.x = left
-       self.rect.y = top
+       self.rect.x = int(left)
+       self.rect.y = int(top)
        self.x_speed = x_speed
        self.y_speed = y_speed
 
     def move(self, dt):
-        self.rect.x += self.x_speed * dt
-        self.rect.y += self.y_speed * dt
+        self.rect.x += int(self.x_speed * dt)
+        self.rect.y += int(self.y_speed * dt)
         hits = pygame.sprite.spritecollide(self, walls, False)
         for hit in hits:
             if hit == left_wall and self.x_speed < 0:
@@ -64,6 +64,14 @@ class Ball(pygame.sprite.Sprite):
             if hit == paddle and self.y_speed > 0:
                 self.y_speed *= -1
                 print(self.y_speed)
+
+    def display_details(self, screen):
+        font = pygame.font.Font(None, 20)
+        text = font.render(f'X: {self.rect.x}; Y: {self.rect.y}; XS: {self.x_speed}; YS = {self.y_speed}', 1, TEXT_COLOR)
+        textpos = text.get_rect()
+        textpos.centerx = screen.get_rect().centerx
+        textpos.y = 10
+        screen.blit(text, textpos)
 
 
 class Paddle(Wall):
@@ -93,7 +101,7 @@ top_wall = Wall(SCREEN_WIDTH, WALL_THICKNESS, 0, PLAY_AREA_TOP)
 left_wall = Wall(WALL_THICKNESS, SCREEN_HEIGHT - PLAY_AREA_TOP, 0, PLAY_AREA_TOP)
 right_wall = Wall(WALL_THICKNESS, SCREEN_HEIGHT - PLAY_AREA_TOP, SCREEN_WIDTH - WALL_THICKNESS, PLAY_AREA_TOP)
 paddle = Paddle(PADDLE_WIDTH, WALL_THICKNESS, (SCREEN_WIDTH / 2) - (PADDLE_WIDTH / 2), SCREEN_HEIGHT - WALL_THICKNESS - 10)
-ball = Ball(BALL_SIZE, (SCREEN_WIDTH / 2) - (BALL_SIZE / 2), (SCREEN_HEIGHT - PLAY_AREA_TOP) / 2, random.randint(-10, 10) / 100, random.randint(-10, 10) / 100)
+ball = Ball(BALL_SIZE, (SCREEN_WIDTH / 2) - (BALL_SIZE / 2), (SCREEN_HEIGHT - PLAY_AREA_TOP) / 2, ((random.random() * 20) - 10) /100, ((random.random() * 20) - 10) /100)
 
 # Set up the drawing window
 screen = pygame.display.set_mode([SCREEN_WIDTH, SCREEN_HEIGHT])
@@ -123,6 +131,7 @@ while running:
 
     items.draw(background)
     display_lives(background, lives)
+    ball.display_details(background)
 
     screen.blit(background, (0, 0))
     pygame.display.flip()
