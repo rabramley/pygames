@@ -30,6 +30,16 @@ class Wall(pygame.sprite.Sprite):
        self.rect.y = top
 
 
+class Paddle(Wall):
+    def move(self, left_down, right_down):
+        if right_down:
+            self.rect.x += PADDLE_SPEED * dt
+            print(f'Right: {PADDLE_SPEED * dt}')
+        if left_down:
+            self.rect.x -= PADDLE_SPEED * dt
+            print(f'Left: {PADDLE_SPEED * dt}')
+    
+
 def display_lives (screen, lives):
     font = pygame.font.Font(None, 36)
     text = font.render(f'Lives: {lives}', 1, TEXT_COLOR)
@@ -46,7 +56,7 @@ lives = 10
 top_wall = Wall(SCREEN_WIDTH, WALL_THICKNESS, 0, PLAY_AREA_TOP)
 left_wall = Wall(WALL_THICKNESS, SCREEN_HEIGHT - PLAY_AREA_TOP, 0, PLAY_AREA_TOP)
 right_wall = Wall(WALL_THICKNESS, SCREEN_HEIGHT - PLAY_AREA_TOP, SCREEN_WIDTH - WALL_THICKNESS, PLAY_AREA_TOP)
-paddle = Wall(PADDLE_WIDTH, WALL_THICKNESS, (SCREEN_WIDTH / 2) - (PADDLE_WIDTH / 2), SCREEN_HEIGHT - WALL_THICKNESS - 10)
+paddle = Paddle(PADDLE_WIDTH, WALL_THICKNESS, (SCREEN_WIDTH / 2) - (PADDLE_WIDTH / 2), SCREEN_HEIGHT - WALL_THICKNESS - 10)
 
 # Set up the drawing window
 screen = pygame.display.set_mode([SCREEN_WIDTH, SCREEN_HEIGHT])
@@ -58,7 +68,7 @@ clock = pygame.time.Clock()
 
 while running:
 
-    dt = clock.tick()
+    dt = clock.tick(60)
 
     # Did the user click the window close button?
     for event in pygame.event.get():
@@ -67,12 +77,7 @@ while running:
 
     keys = pygame.key.get_pressed()
 
-    if keys[pygame.K_RIGHT]:
-        paddle.rect.x += PADDLE_SPEED * dt
-        print('Right')
-    if keys[pygame.K_LEFT]:
-        paddle.rect.x -= PADDLE_SPEED * dt
-        print('Left')
+    paddle.move(keys[pygame.K_LEFT], keys[pygame.K_RIGHT])
     
     background = pygame.Surface(screen.get_size())
     background = background.convert()
