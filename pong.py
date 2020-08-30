@@ -66,10 +66,9 @@ class Ball(pygame.sprite.Sprite):
                 print(self.y_speed)
 
     def display_details(self, screen):
-        font = pygame.font.Font(None, 20)
+        font = pygame.font.Font(None, 15)
         text = font.render(f'X: {self.rect.x}; Y: {self.rect.y}; XS: {self.x_speed}; YS = {self.y_speed}', 1, TEXT_COLOR)
         textpos = text.get_rect()
-        textpos.centerx = screen.get_rect().centerx
         textpos.y = 10
         screen.blit(text, textpos)
 
