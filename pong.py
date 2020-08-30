@@ -50,6 +50,20 @@ class Ball(pygame.sprite.Sprite):
     def move(self, dt):
         self.rect.x += self.x_speed * dt
         self.rect.y += self.y_speed * dt
+        hits = pygame.sprite.spritecollide(self, walls, False)
+        for hit in hits:
+            if hit == left_wall and self.x_speed < 0:
+                self.x_speed *= -1
+                print(self.x_speed)
+            if hit == right_wall and self.x_speed > 0:
+                self.x_speed *= -1
+                print(self.x_speed)
+            if hit == top_wall  and self.y_speed < 0:
+                self.y_speed *= -1
+                print(self.y_speed)
+            if hit == paddle and self.y_speed > 0:
+                self.y_speed *= -1
+                print(self.y_speed)
 
 
 class Paddle(Wall):
