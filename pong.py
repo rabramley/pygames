@@ -35,7 +35,7 @@ class Wall(pygame.sprite.Sprite):
 
 class Ball(pygame.sprite.Sprite):
 
-    def __init__(self, size, left, top, x_speed, y_speed):
+    def __init__(self, size, left, top):
        pygame.sprite.Sprite.__init__(self, items)
 
        self.image = pygame.Surface([size, size])
@@ -44,9 +44,9 @@ class Ball(pygame.sprite.Sprite):
        self.rect = self.image.get_rect()
        self.rect.x = int(left)
        self.rect.y = int(top)
-       self.x_speed = x_speed
-       self.y_speed = y_speed
-
+       self.x_speed = random.randint(10,50) * random.choice([1, -1]) / 100
+       self.y_speed = random.randint(10,50) * random.choice([1, -1]) / 100
+       
     def move(self, dt):
         self.rect.x += int(self.x_speed * dt)
         self.rect.y += int(self.y_speed * dt)
@@ -101,7 +101,7 @@ top_wall = Wall(SCREEN_WIDTH, WALL_THICKNESS, 0, PLAY_AREA_TOP)
 left_wall = Wall(WALL_THICKNESS, SCREEN_HEIGHT - PLAY_AREA_TOP, 0, PLAY_AREA_TOP)
 right_wall = Wall(WALL_THICKNESS, SCREEN_HEIGHT - PLAY_AREA_TOP, SCREEN_WIDTH - WALL_THICKNESS, PLAY_AREA_TOP)
 paddle = Paddle(PADDLE_WIDTH, WALL_THICKNESS, (SCREEN_WIDTH / 2) - (PADDLE_WIDTH / 2), SCREEN_HEIGHT - WALL_THICKNESS - 10)
-ball = Ball(BALL_SIZE, (SCREEN_WIDTH / 2) - (BALL_SIZE / 2), (SCREEN_HEIGHT - PLAY_AREA_TOP) / 2, ((random.random() * 20) - 10) /100, ((random.random() * 20) - 10) /100)
+ball = Ball(BALL_SIZE, (SCREEN_WIDTH / 2) - (BALL_SIZE / 2), (SCREEN_HEIGHT - PLAY_AREA_TOP) / 2)
 
 # Set up the drawing window
 screen = pygame.display.set_mode([SCREEN_WIDTH, SCREEN_HEIGHT])
