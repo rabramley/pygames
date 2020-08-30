@@ -8,6 +8,7 @@ SCREEN_HEIGHT = 500
 
 WALL_THICKNESS = 10
 PADDLE_WIDTH = 100
+PADDLE_SPEED = 0.5
 PLAY_AREA_TOP = 40
 
 WALL_COLOR = (255, 255, 255)
@@ -63,6 +64,15 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+
+    keys = pygame.key.get_pressed()
+
+    if keys[pygame.K_RIGHT]:
+        paddle.rect.x += PADDLE_SPEED * dt
+        print('Right')
+    if keys[pygame.K_LEFT]:
+        paddle.rect.x -= PADDLE_SPEED * dt
+        print('Left')
     
     background = pygame.Surface(screen.get_size())
     background = background.convert()
